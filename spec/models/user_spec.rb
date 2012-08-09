@@ -9,6 +9,7 @@
 #  updated_at :datetime        not null
 #
 
+
 require 'spec_helper'
 
 describe User do
@@ -19,6 +20,18 @@ describe User do
   end
   
   subject { @user }
+  
+  it { should respond_to(:admin) }
+  it { should respond_to(:authenticate) }
+  
+  it { should be_valid }
+  it { should_not be_admin }
+  
+  describe "with admin attributes set to 'true'" do
+    before { @user.toggle!(:admin) }
+    
+    it { should be_admin }
+  end
   
   it { should respond_to(:name) }
   it { should respond_to(:email) }
